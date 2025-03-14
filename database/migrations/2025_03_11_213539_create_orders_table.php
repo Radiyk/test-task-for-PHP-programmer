@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('status', ['новый', 'выполнен'])->default('новый');
             $table->string('fio');
             $table->text('comment');
+            $table->integer('count')
+                ->default(0);
 
         });
     }
