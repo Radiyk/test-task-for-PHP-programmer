@@ -104,6 +104,7 @@
         document.getElementById("productForm").action = "/productEdit";
         document.getElementById("productName").value = product.name;
         document.getElementById("productCategory").value = product.category;
+        document.getElementById("productCategory").setAttribute('readonly', 'readonly');
         document.getElementById("productDescription").value = product.description;
         document.getElementById("productPrice").value = product.price;
         document.getElementById("productId").value = product.id;
