@@ -11,13 +11,33 @@ class Products extends Model
     use HasFactory;
     protected function getListProducts()
     {
+//        return Products::select('products.id', 'products.name', 'products.description', 'products.price', 'categories.name as category', )
+//            ->join('categories', 'products.category_id', '=', 'categories.id')
+//            ->orderBy('products.name', 'desc')
+//            ->get()
+//            ->toArray();
+
+
+
         return DB::table('products')
-            ->select(['products.id','products.name', 'products.description', 'products.price', DB::raw('C.name as category')])
+            ->select(['products.id','products.name', 'products.description', 'products.price', DB::raw('C.name as category'), DB::raw('C.id as category_id')])
             ->join('categories as C', 'products.category_id', '=', 'C.id')
             ->orderBy('name', 'desc')
             ->get()
             ->toArray();
     }
+
+    protected function getProductById()
+    {
+        return DB::table('products')
+            ->select(['products.id','products.name', 'products.description', 'products.price', DB::raw('C.name as category')])
+            ->where('id', )
+            ->join('categories as C', 'products.category_id', '=', 'C.id')
+            ->orderBy('name', 'desc')
+            ->get()
+            ->toArray();
+    }
+
     protected function setDeleteProduct($IdFromDel)
     {
         return DB::table('products')
@@ -26,15 +46,10 @@ class Products extends Model
 
     protected function setAddProduct($data)
     {
-        $category_id = DB::table('categories')
-            ->select('id')
-            ->where('name', $data->category)
-            ->first();
-
         $products = new Products;
 
         $products->name = $data->name;
-        $products->category_id = $category_id->id;
+        $products->category_id = $data->category;
         $products->description = $data->description;
         $products->price = $data->price;
 
@@ -43,15 +58,11 @@ class Products extends Model
 
     protected function setEditProduct($data)
     {
-        $category_id = DB::table('categories')
-            ->select('id')
-            ->where('name', $data->category)
-            ->first();
 
         $products = Products::find($data->productId);
 
         $products->name = $data->name;
-        $products->category_id = $category_id->id;
+        $products->category_id = $data->category;
         $products->description = $data->description;
         $products->price = $data->price;
 

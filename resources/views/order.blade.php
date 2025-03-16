@@ -6,7 +6,10 @@
     </h4>
     <div class="wrap">
         <div class="forBtn">
-            <a href="{{ route('updateOrderStatus', $order->id) }}" class="btn btn-primary">Поменять статус</a>
+            <form action="{{ route('updateOrderStatus', ['id' => $order->id]) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary">Поменять статус</button>
+            </form>
         </div>
             <table class="table">
                 <thead>

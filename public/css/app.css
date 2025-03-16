@@ -106,3 +106,8 @@ footer {
     text-align: center;
     margin-top: 20px;
 }
+
+#productForm{
+    display: flex;
+    justify-content: space-around;
+}

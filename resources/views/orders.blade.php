@@ -13,7 +13,7 @@
                     <span class="modal__close">&times;</span> <!-- Кнопка закрытия -->
                     <h2 id="modal-title">Детали нового заказа</h2>
                     <div class="container mt-5">
-                        <form action="/orderAdd" id="orderForm" method="post" class="col-sm-7">
+                        <form action="/orders/add" id="orderForm" method="post" class="col-sm-7">
                             @csrf
                             <label for="productName" class="form-label">Название товара</label>
                             <div class="mb-3">
@@ -87,7 +87,7 @@
                 <tbody>
                 <tr>
                     <td>{{ $orders->id }}</td>
-                    <td><a href="order/{{ $orders->id }}">{{ e($orders->status) }}</a></td>
+                    <td><a href="{{ route('order', ['id' => $orders->id]) }}">{{ e($orders->status) }}</a></td>
                     <td>{{ date('Y.m.d', strtotime($orders->date)) }}</td>
                     <td>{{ e($orders->fio) }}</td>
                     <td>{{ e(number_format($orders->total_price, 2, ',', ' ')) }} руб.</td>
